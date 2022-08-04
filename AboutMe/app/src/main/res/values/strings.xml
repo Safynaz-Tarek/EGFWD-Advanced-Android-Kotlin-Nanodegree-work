@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">About Me</string>
+    <string name="Name">Safynaz Tarek</string>
+    <string name="yellow_star">Yellow Star</string>
+    <string name="bio">
+        My name is Safynaz Tarek Elsagheir,
+        \n\nI am a holder of B.Sc. degree in Computer and Communication at the faculty of Engineering, Alexandria University, Egypt (2017 – 2022).
+        \n\nI graduated this spring semester on July, 2022.
+        \n\nI am a former software engineer at Made in Alexandria Robotics Team in Alexandria, Egypt.
+        \nDuring my time in the team, I worked in developing a communication system using QT framework and coded in C++ to control
+        an underwater remotely operated vehicle [ROV].
+        \nThis system is developed as part of my work for the 2020- 2021 international MATE ROV competition that took place in America.
+        \n\nI also interned at IHUB-ASU in Cairo, Egypt, where I got a chance to work with Microsoft’s latest Azure Kinect Developers Kit.
+        The project included utilizing the camera in developing a rehabilitation application. In this project,
+        \nI was responsible for Tracking and visualizing skeletons in 2D plane and developing the needed exercises using C# and Visual Studio.
+
+    </string>
+</resources>
