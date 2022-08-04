@@ -15,4 +15,6 @@
         \nI was responsible for Tracking and visualizing skeletons in 2D plane and developing the needed exercises using C# and Visual Studio.
 
     </string>
+    <string name="what_is_your_nickname">What is your Nickname?</string>
+    <string name="done">Done</string>
 </resources>
