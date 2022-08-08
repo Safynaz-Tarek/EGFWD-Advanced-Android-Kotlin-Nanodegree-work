@@ -52,6 +52,12 @@
             app:destination="@id/gameFragment"
             app:popExitAnim="@anim/fade_out"
             app:popUpTo="@id/titleFragment" />
+        <argument
+            android:name="numQuestions"
+            app:argType="integer" />
+        <argument
+            android:name="numCorrect"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
