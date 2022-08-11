@@ -30,6 +30,10 @@ import com.example.android.dessertpusher.databinding.ActivityMainBinding
 import timber.log.Timber
 import kotlin.math.log
 
+const val KEY_REVENUE = "key_revenue"
+const val DESSERTS_SOLD_KEY = "desserts_sold"
+const val TIMER_KEY = "current_timer"
+
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     private var revenue = 0
@@ -37,6 +41,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
+    private lateinit var dessertTimer: DessertTimer
 
     /** Dessert Data **/
 
@@ -75,13 +80,38 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         binding.dessertButton.setOnClickListener {
             onDessertClicked()
         }
-
+        dessertTimer = DessertTimer(this.lifecycle)
+        if(savedInstanceState != null){
+            revenue = savedInstanceState.getInt(KEY_REVENUE)
+            dessertsSold = savedInstanceState.getInt(DESSERTS_SOLD_KEY)
+            dessertTimer.secondsCount = savedInstanceState.getInt(TIMER_KEY)
+        }
         // Set the TextViews to the right values
         binding.revenue = revenue
         binding.amountSold = dessertsSold
 
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.i("onDestroy Called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.i("OnPause Called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.i("onResume called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.i("onStop Called")
     }
 
     override fun onStart() {
@@ -154,5 +184,20 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             R.id.shareMenuButton -> onShare()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    //The bundle should be less than 100KB otherwise there is a risk of crashing
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Timber.i("onSaveInstanceState called")
+        outState.putInt(KEY_REVENUE, revenue)
+        outState.putInt(DESSERTS_SOLD_KEY, dessertsSold)
+        outState.putInt(TIMER_KEY, dessertTimer.secondsCount)
+
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
     }
 }
