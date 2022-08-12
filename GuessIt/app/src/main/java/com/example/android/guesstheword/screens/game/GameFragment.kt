@@ -71,10 +71,6 @@ class GameFragment : Fragment() {
             }
         })
 
-        viewModel.currentTime.observe(this, Observer { countDownTime ->
-           binding.timerText.text = DateUtils.formatElapsedTime(countDownTime)
-        })
-
         return binding.root
 
     }
