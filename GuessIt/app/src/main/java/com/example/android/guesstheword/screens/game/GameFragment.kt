@@ -60,12 +60,7 @@ class GameFragment : Fragment() {
 //        We pass the fragment(using the keyword 'this' & we pass the specific view model that we want
         viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
 
-        binding.correctButton.setOnClickListener {
-            viewModel.onCorrect()
-        }
-        binding.skipButton.setOnClickListener {
-            viewModel.onSkip()
-        }
+        binding.gameViewModel = viewModel
 
         viewModel.score.observe(this, Observer { newScore->
             binding.scoreText.text = newScore.toString()
