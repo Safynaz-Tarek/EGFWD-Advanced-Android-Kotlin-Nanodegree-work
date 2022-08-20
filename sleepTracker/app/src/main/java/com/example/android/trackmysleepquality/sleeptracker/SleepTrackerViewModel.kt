@@ -18,12 +18,14 @@ package com.example.android.trackmysleepquality.sleeptracker
 
 import android.app.Application
 import android.provider.SyncStateContract.Helpers.insert
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.SleepNight
+import com.example.android.trackmysleepquality.formatNights
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -65,14 +67,13 @@ class SleepTrackerViewModel(
                 }
         }
 
-
+//      In Kotlin, the return@label syntax is used for specifying which function
+//      among several nested ones this statement return from.
+//     here we are specifying to return from launch() not the lambda
         fun onStopTracking(){
-                viewModelScope.launch {
-//                       In Kotlin, the return@label syntax is used for specifying which function
-//                        among several nested ones this statement return from.
-//                        here we are specifying to return from launch() not the lambda
 
-                        val oldNight = tonight.value?: return@launch
+                viewModelScope.launch {
+                        val oldNight = tonight.value ?: return@launch
                         oldNight.endTimeMilli = System.currentTimeMillis()
                         update(oldNight)
                 }
@@ -93,10 +94,9 @@ class SleepTrackerViewModel(
         private suspend fun clear(){
                 database.clear()
         }
-//        val nightString = Transformations.map(nights){ nights ->
-//                formatNights(nights, application.resources)
-//
-//        }
+        val nightString = Transformations.map(nights){ nights ->
+                formatNights(nights, application.resources)
+        }
 
 }
 
