@@ -17,9 +17,15 @@
 package com.example.android.trackmysleepquality.sleeptracker
 
 import android.app.Application
+import android.provider.SyncStateContract.Helpers.insert
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.example.android.trackmysleepquality.database.SleepDatabaseDao
+import com.example.android.trackmysleepquality.database.SleepNight
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * ViewModel for SleepTrackerFragment.
@@ -27,5 +33,70 @@ import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 class SleepTrackerViewModel(
         val database: SleepDatabaseDao,
         application: Application) : AndroidViewModel(application) {
+
+        private var tonight = MutableLiveData<SleepNight?>()
+
+        private val nights = database.getAllNight()
+
+        init {
+            initializeTonight()
+        }
+
+        private fun initializeTonight() {
+                viewModelScope.launch {
+                        tonight.value = getTonightFromDatabase()
+                }
+        }
+
+        private suspend fun getTonightFromDatabase(): SleepNight? {
+                var night = database.getTonight()
+                if(night?.endTimeMilli != night?.startTimeMilli){
+                        night = null
+                }
+                return night
+        }
+
+        fun onStartTracking(){
+                viewModelScope.launch {
+                        val newNight = SleepNight()
+                        insert(newNight)
+                        tonight.value = getTonightFromDatabase()
+
+                }
+        }
+
+
+        fun onStopTracking(){
+                viewModelScope.launch {
+//                       In Kotlin, the return@label syntax is used for specifying which function
+//                        among several nested ones this statement return from.
+//                        here we are specifying to return from launch() not the lambda
+
+                        val oldNight = tonight.value?: return@launch
+                        oldNight.endTimeMilli = System.currentTimeMillis()
+                        update(oldNight)
+                }
+        }
+
+        fun onClear(){
+                viewModelScope.launch {
+                        clear()
+                        tonight.value = null
+                }
+        }
+        private suspend fun insert(newNight: SleepNight) {
+                database.insert(newNight)
+        }
+        private suspend fun update(oldNight: SleepNight) {
+                database.update(oldNight)
+        }
+        private suspend fun clear(){
+                database.clear()
+        }
+//        val nightString = Transformations.map(nights){ nights ->
+//                formatNights(nights, application.resources)
+//
+//        }
+
 }
 
