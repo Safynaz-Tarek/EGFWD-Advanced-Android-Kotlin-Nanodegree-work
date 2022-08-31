@@ -21,7 +21,7 @@ class SleepNightAdapter(val clickListener: SleepNightListener) : ListAdapter<Sle
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!, clickListener)
+        holder.bind(getItem(position), clickListener)
 //        val item = getItem(position)
 //        holder.bind(item)
     }
