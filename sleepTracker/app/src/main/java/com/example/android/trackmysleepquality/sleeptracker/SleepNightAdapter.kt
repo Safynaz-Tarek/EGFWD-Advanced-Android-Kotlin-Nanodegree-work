@@ -11,22 +11,26 @@ import com.example.android.trackmysleepquality.databinding.ListItemSleepNightBin
 //List adapter helps us build a recycler view that is backed by a list, it will help us
 //in keeping track of the list & even notify the adapter when it's updated
 //First argument is the type of the list that it is holding,
-class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()){
 
+//We recieve a sleep night listener reference in the constructor, the adapter doesn't
+//really care about how clicks get handled, it just takes a callback
+class SleepNightAdapter(val clickListener: SleepNightListener) : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+        holder.bind(getItem(position)!!, clickListener)
+//        val item = getItem(position)
+//        holder.bind(item)
     }
 
     class ViewHolder private constructor(val binding : ListItemSleepNightBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: SleepNight) {
+        fun bind(item: SleepNight, clickListener: SleepNightListener) {
             binding.sleep = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -58,4 +62,10 @@ class SleepNightDiffCallback: DiffUtil.ItemCallback<SleepNight>(){
     override fun areContentsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
         return oldItem == newItem
     }
+}
+
+//We'll call onClick whenever the user clicks an item
+//this lambda takes data about sleep Night
+class SleepNightListener(val clickListener: (sleepId: Long) -> Unit){
+    fun onClick(night : SleepNight) = clickListener(night.nightId)
 }
