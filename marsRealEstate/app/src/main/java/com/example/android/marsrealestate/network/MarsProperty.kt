@@ -17,4 +17,16 @@
 
 package com.example.android.marsrealestate.network
 
-class MarsProperty()
+import com.squareup.moshi.Json
+
+//When converting the parse JSON response to kotlin objects, Moshi will match
+//the property names from the MarsProperty Class with a property name from the JSON response
+
+//To use property names that differ from the JSON attributes of our JSON, we use the
+//@JSON and map the attribute name to the var name we created
+data class MarsProperty(
+    val id: String,
+    @Json(name = "img_src") val imgSrcUrl: String,
+    val type: String,
+    val price: Double
+)
