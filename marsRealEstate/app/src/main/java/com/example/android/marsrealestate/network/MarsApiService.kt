@@ -19,9 +19,11 @@ package com.example.android.marsrealestate.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 //Retrofit is a library that creates a network API for our APP
 //Based on the content from our web service
@@ -29,6 +31,7 @@ import retrofit2.http.GET
 //That knows how to decode data and return it in the form of useful objects
 private const val BASE_URL = "https://mars.udacity.com/"
 
+enum class MarsApiFilter(val value: String){SHOW_RENT("rent"), SHOW_BUY("buy"), SHOW_ALL("all")}
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
@@ -43,7 +46,8 @@ interface MarsApiService{
 //    Retrofit append the endpoint realestate the base url and creates a call object
 //    The call object is used to start the request
     @GET("realestate")
-    suspend fun getProperties(): List<MarsProperty>
+    suspend fun getProperties(@Query("filter") type:String ):
+        List<MarsProperty>
 }
 
 // The create call is expensive and our app needs only one service instance we implement
