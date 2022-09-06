@@ -17,6 +17,7 @@
 
 package com.example.android.devbyteviewer.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.android.devbyteviewer.database.VideosDatabase
@@ -26,6 +27,7 @@ import com.example.android.devbyteviewer.network.Network
 import com.example.android.devbyteviewer.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 //Repostories are responsible for providing a simple API to our data sources
 //In this repo, we need a videos DB so we pass it as a constructor param
@@ -43,8 +45,13 @@ class VideosRepository(private val database: VideosDatabase){
     suspend fun refreshVideos(){
 //        WithContext forces a kotlin coroutine to switch to the dispatcher specified
         withContext(Dispatchers.IO){
-            val playlist = Network.devbytes.getPlaylist().await()
-            database.videoDao.insertAll(*playlist.asDatabaseModel())
+            try {
+                val playlist = Network.devbytes.getPlaylist().await()
+                database.videoDao.insertAll(*playlist.asDatabaseModel())
+            }catch (e: Exception){
+                Log.i("Rep","Failed to load")
+            }
+
         }
     }
 }

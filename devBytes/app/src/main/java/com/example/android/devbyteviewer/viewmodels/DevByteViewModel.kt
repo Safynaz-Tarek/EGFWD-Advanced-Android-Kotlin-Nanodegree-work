@@ -18,6 +18,7 @@
 package com.example.android.devbyteviewer.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.android.devbyteviewer.database.getDatabase
 import com.example.android.devbyteviewer.domain.Video
@@ -28,6 +29,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.io.IOException
 
 /**
@@ -47,7 +49,11 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
     init {
         viewModelScope.launch {
-            videosRepository.refreshVideos()
+            try {
+                videosRepository.refreshVideos()
+            }catch (e: HttpException){
+                Log.i("ViewModel", "Couldn't connect")
+            }
         }
     }
 
