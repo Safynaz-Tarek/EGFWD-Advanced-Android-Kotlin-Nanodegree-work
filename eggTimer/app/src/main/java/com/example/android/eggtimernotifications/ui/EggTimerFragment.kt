@@ -31,6 +31,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.android.eggtimernotifications.R
 import com.example.android.eggtimernotifications.databinding.FragmentEggTimerBinding
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
 
 class EggTimerFragment : Fragment() {
 
@@ -60,13 +61,21 @@ class EggTimerFragment : Fragment() {
             getString(R.string.breakfast_notification_channel_name)
         )
 
-//        subscribeToTopic()
+        subscribeToTopic()
 
         return binding.root
     }
 
     private fun subscribeToTopic() {
-        TODO("Not yet implemented")
+        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+            .addOnCompleteListener{ task ->
+                var msg = getString(R.string.message_subscribed)
+                if(!task.isSuccessful){
+                    msg = getString(R.string.message_subscribe_failed)
+                }
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+
+            }
     }
 
     private fun createChannel(channelId: String, channelName: String) {
