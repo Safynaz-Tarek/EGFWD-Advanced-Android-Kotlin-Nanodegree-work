@@ -52,10 +52,21 @@ class EggTimerFragment : Fragment() {
 
         createChannel(
             getString(R.string.egg_notification_channel_id),
+            getString(R.string.egg_notification_channel_name)
+        )
+
+        createChannel(
+            getString(R.string.egg_notification_channel_id),
             getString(R.string.breakfast_notification_channel_name)
         )
 
+//        subscribeToTopic()
+
         return binding.root
+    }
+
+    private fun subscribeToTopic() {
+        TODO("Not yet implemented")
     }
 
     private fun createChannel(channelId: String, channelName: String) {

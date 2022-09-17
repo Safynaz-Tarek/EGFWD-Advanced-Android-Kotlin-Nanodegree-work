@@ -2,8 +2,10 @@
   <library name="Gradle: androidx.loader:loader:1.0.0@aar">
     <CLASSES>
       <root url="file://D:/.gradle/caches/transforms-2/files-2.1/6f621cac338d61e4657df2851636b5fa/loader-1.0.0/res" />
-      <root url="file://D:/.gradle/caches/transforms-2/files-2.1/24874bae1d589f0a55cfa67cb23747c9/loader-1.0.0/AndroidManifest.xml" />
       <root url="file://D:/.gradle/caches/transforms-2/files-2.1/24874bae1d589f0a55cfa67cb23747c9/loader-1.0.0/res" />
+      <root url="file://D:/.gradle/caches/transforms-2/files-2.1/0f8dd64ddef9cd81c70da2329f5b269d/loader-1.0.0/res" />
+      <root url="file://D:/.gradle/caches/transforms-2/files-2.1/6fe24ddecc691513cc465d0f618aaf26/loader-1.0.0/res" />
+      <root url="file://D:/.gradle/caches/transforms-2/files-2.1/24874bae1d589f0a55cfa67cb23747c9/loader-1.0.0/AndroidManifest.xml" />
       <root url="jar://D:/.gradle/caches/transforms-2/files-2.1/24874bae1d589f0a55cfa67cb23747c9/loader-1.0.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />

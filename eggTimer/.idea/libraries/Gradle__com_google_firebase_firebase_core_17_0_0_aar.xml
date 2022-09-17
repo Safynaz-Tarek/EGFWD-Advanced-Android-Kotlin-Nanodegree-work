@@ -2,8 +2,10 @@
   <library name="Gradle: com.google.firebase:firebase-core:17.0.0@aar">
     <CLASSES>
       <root url="file://D:/.gradle/caches/transforms-2/files-2.1/464a8ba55bae2e1d52674bd66d65dbc8/jetified-firebase-core-17.0.0/res" />
-      <root url="file://D:/.gradle/caches/transforms-2/files-2.1/f8514659b9667333d3f3c76847c1456b/jetified-firebase-core-17.0.0/AndroidManifest.xml" />
       <root url="file://D:/.gradle/caches/transforms-2/files-2.1/f8514659b9667333d3f3c76847c1456b/jetified-firebase-core-17.0.0/res" />
+      <root url="file://D:/.gradle/caches/transforms-2/files-2.1/1bdc8f6d99cdbf53ba1c760638658f87/jetified-firebase-core-17.0.0/res" />
+      <root url="file://D:/.gradle/caches/transforms-2/files-2.1/1bd284a22de3b6850f45831b9d96330b/jetified-firebase-core-17.0.0/res" />
+      <root url="file://D:/.gradle/caches/transforms-2/files-2.1/f8514659b9667333d3f3c76847c1456b/jetified-firebase-core-17.0.0/AndroidManifest.xml" />
       <root url="jar://D:/.gradle/caches/transforms-2/files-2.1/f8514659b9667333d3f3c76847c1456b/jetified-firebase-core-17.0.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
